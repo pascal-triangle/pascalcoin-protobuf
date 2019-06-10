@@ -23,7 +23,8 @@ const clientConfig = {
         libraryTarget: "umd",
         path: path.resolve(__dirname, "dist"),
         filename: "lib.web.js"
-    }
+    },
+    node: false
 }
 
 module.exports = [ serverConfig, clientConfig ]
