@@ -1,0 +1,25 @@
+{
+  "name": "pascalcoin-protobuf",
+  "version": "0.0.1",
+  "description": "Protobuf definitions and helper functions for PascalCoin",
+  "main": "dist/lib.node.js",
+  "scripts": {
+    "build": "yarn run build:proto && yarn run build:webpack",
+    "build:webpack": "webpack --mode=production",
+    "build:proto": "protoc --js_out=import_style=commonjs_strict,binary:dist/proto/ --proto_path=src/proto src/proto/*.proto"
+  },
+  "repository": "https://github.com/pascal-triangle/pascalcoin-protobuf.git",
+  "author": "mosu forge <mosu.forge@protonmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.3",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "google-protobuf": "^3.8.0"
+  }
+}

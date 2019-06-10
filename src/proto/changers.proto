@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+message Changers {
+  uint32 account = 1;
+  uint32 n_operation = 2;
+  bytes new_enc_pubkey = 3;
+  string new_name = 4;
+  uint32 new_type = 5;
+  uint32 seller_account = 6;
+  string account_price = 7;
+  uint32 locked_until_block = 8;
+  string fee = 9;
+}

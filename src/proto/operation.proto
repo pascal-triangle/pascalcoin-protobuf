@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+import "changers.proto";
+import "senders.proto";
+import "receivers.proto";
+
+message Operation {
+  enum Optype {
+    BLOCKCHAIN_REWARD = 0;
+    TRANSACTION = 1;
+    CHANGE_KEY = 2;
+    RECOVER_FUNDS = 3;
+    LIST_FOR_SALE = 4;
+    DELIST = 5;
+    BUY = 6;
+    CHANGE_KEY_ACCOUNT = 7;
+    CHANGE_ACCOUNT_INFO = 8;
+    MULTI_OPERATION = 9;
+    DATA = 10;
+  }
+  enum Subtype {
+    SUBTYPE_NONE = 0;
+    SUBTYPE_MINER = 1;
+    SUBTYPE_DEVELOPER = 2;
+    SUBTYPE_TX_SENDER = 11;
+    SUBTYPE_TX_RECEIVER = 12;
+    SUBTYPE_TX_BUY_BUYER = 13;
+    SUBTYPE_TX_BUY_TARGET = 14;
+    SUBTYPE_TX_BUY_SELLER = 15;
+    SUBTYPE_CHANGE_KEY = 21;
+    SUBTYPE_RECOVER = 31;
+    SUBTYPE_LIST_PUBLIC = 41;
+    SUBTYPE_LIST_PRIVATE = 42;
+    SUBTYPE_DELIST = 51;
+    SUBTYPE_BUY_BUYER = 61;
+    SUBTYPE_BUY_TARGET = 62;
+    SUBTYPE_BUY_SELLER = 63;
+    SUBTYPE_CHANGE_KEY_SIGNED = 71;
+    SUBTYPE_CHANGE_ACCOUNT_INFO = 81;
+    SUBTYPE_MULTI_GLOBAL = 91;
+    SUBTYPE_MULTI_ACCOUNT_INFO = 92;
+    SUBTYPE_DATA_GLOBAL = 101;
+    SUBTYPE_DATA_SENDER = 102;
+    SUBTYPE_DATA_SIGNER = 103;
+    SUBTYPE_DATA_RECEIVER = 104;
+  }
+
+  bool valid = 1;
+  string errors = 2;
+  uint32 block = 3;
+  uint32 time = 4;
+  uint32 opblock = 5;
+  bytes payload = 6;
+  uint32 maturation = 7;
+  Optype optype = 8;
+  uint32 account = 9;
+  string optxt = 10;
+  string amount = 11;
+  string fee = 12;
+  string balance = 13;
+  bytes ophash = 14;
+  bytes old_ophash = 15;
+  Subtype subtype = 16;
+  uint32 signer_account = 17;
+  uint32 sender_account = 18;
+  uint32 dest_account = 19;
+  uint32 n_operation = 20;
+  repeated Changers changers = 21;
+  repeated Senders senders = 22;
+  repeated Receivers receivers = 23;
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+message Account {
+  enum State {
+    normal = 0;
+    listed = 1;
+  }
+
+  uint32 account = 1;
+  bytes enc_pubkey = 2;
+  string balance = 3;
+  uint32 n_operation = 4;
+  uint32 updated_b = 5;
+  State state = 6;
+  string name = 7;
+  uint32 type = 8;
+  uint32 locked_until_block = 9;
+  string price = 10;
+  uint32 seller_account = 11;
+  bool private_sale = 12;
+  bytes new_enc_pubkey = 13;
+}
