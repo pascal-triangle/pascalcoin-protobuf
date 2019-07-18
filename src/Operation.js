@@ -52,6 +52,13 @@ export default class extends Operation {
         super.setFee(fee)
     }
 
+    setEncPubkey(enc_pubkey) {
+        if(typeof enc_pubkey === "string" && enc_pubkey.length) {
+            enc_pubkey = utils.toBytes(enc_pubkey)
+        }
+        super.setEncPubkey(enc_pubkey)
+    }
+
     setRpcField(field, value) {
         const method = "set" + utils.toCamelCase(field)
         this[method](value)
@@ -86,5 +93,23 @@ export default class extends Operation {
                     break
             }
         }
+    }
+
+    static deserializeToObj(binary) {
+        const deserialized = super.deserializeBinary(binary)
+        let obj = deserialized.toObject()
+        if(obj.hasOwnProperty("ophash") && obj.ophash.length) {
+            obj.ophash = utils.toHexString(deserialized.getOphash())
+        }
+        if(obj.hasOwnProperty("oldOphash") && obj.oldOphash.length) {
+            obj.oldOphash = utils.toHexString(deserialized.getOldOphash())
+        }
+        if(obj.hasOwnProperty("payload") && obj.payload.length) {
+            obj.payload = utils.toHexString(deserialized.getPayload())
+        }
+        if(obj.hasOwnProperty("encPubkey") && obj.encPubkey.length) {
+            obj.encPubkey = utils.toHexString(deserialized.getEncPubkey())
+        }
+        return obj
     }
 }

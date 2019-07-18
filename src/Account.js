@@ -41,4 +41,11 @@ export default class extends Account {
             this.setRpcField(field, obj[field])
         }
     }
+
+    static deserializeToObj(binary) {
+        const deserialized = super.deserializeBinary(binary)
+        let obj = deserialized.toObject()
+        obj.encPubkey = utils.toHexString(deserialized.getEncPubkey())
+        return obj
+    }
 }

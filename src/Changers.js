@@ -34,4 +34,5 @@ export default class extends Changers {
             this.setRpcField(field, obj[field])
         }
     }
+
 }

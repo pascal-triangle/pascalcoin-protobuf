@@ -47,7 +47,7 @@ if (goog.DEBUG && !COMPILED) {
  * @private {!Array<number>}
  * @const
  */
-proto.Operation.repeatedFields_ = [21,22,23];
+proto.Operation.repeatedFields_ = [22,23,24];
 
 
 
@@ -100,6 +100,7 @@ proto.Operation.toObject = function(includeInstance, msg) {
     senderAccount: jspb.Message.getFieldWithDefault(msg, 18, 0),
     destAccount: jspb.Message.getFieldWithDefault(msg, 19, 0),
     nOperation: jspb.Message.getFieldWithDefault(msg, 20, 0),
+    encPubkey: msg.getEncPubkey_asB64(),
     changersList: jspb.Message.toObjectList(msg.getChangersList(),
     changers_pb.Changers.toObject, includeInstance),
     sendersList: jspb.Message.toObjectList(msg.getSendersList(),
@@ -159,7 +160,7 @@ proto.Operation.deserializeBinaryFromReader = function(msg, reader) {
       msg.setTime(value);
       break;
     case 5:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setOpblock(value);
       break;
     case 6:
@@ -207,7 +208,7 @@ proto.Operation.deserializeBinaryFromReader = function(msg, reader) {
       msg.setSubtype(value);
       break;
     case 17:
-      var value = /** @type {number} */ (reader.readUint32());
+      var value = /** @type {number} */ (reader.readInt32());
       msg.setSignerAccount(value);
       break;
     case 18:
@@ -223,16 +224,20 @@ proto.Operation.deserializeBinaryFromReader = function(msg, reader) {
       msg.setNOperation(value);
       break;
     case 21:
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
+      msg.setEncPubkey(value);
+      break;
+    case 22:
       var value = new changers_pb.Changers;
       reader.readMessage(value,changers_pb.Changers.deserializeBinaryFromReader);
       msg.addChangers(value);
       break;
-    case 22:
+    case 23:
       var value = new senders_pb.Senders;
       reader.readMessage(value,senders_pb.Senders.deserializeBinaryFromReader);
       msg.addSenders(value);
       break;
-    case 23:
+    case 24:
       var value = new receivers_pb.Receivers;
       reader.readMessage(value,receivers_pb.Receivers.deserializeBinaryFromReader);
       msg.addReceivers(value);
@@ -296,7 +301,7 @@ proto.Operation.serializeBinaryToWriter = function(message, writer) {
   }
   f = message.getOpblock();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeInt32(
       5,
       f
     );
@@ -380,7 +385,7 @@ proto.Operation.serializeBinaryToWriter = function(message, writer) {
   }
   f = message.getSignerAccount();
   if (f !== 0) {
-    writer.writeUint32(
+    writer.writeInt32(
       17,
       f
     );
@@ -406,10 +411,17 @@ proto.Operation.serializeBinaryToWriter = function(message, writer) {
       f
     );
   }
+  f = message.getEncPubkey_asU8();
+  if (f.length > 0) {
+    writer.writeBytes(
+      21,
+      f
+    );
+  }
   f = message.getChangersList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      21,
+      22,
       f,
       changers_pb.Changers.serializeBinaryToWriter
     );
@@ -417,7 +429,7 @@ proto.Operation.serializeBinaryToWriter = function(message, writer) {
   f = message.getSendersList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      22,
+      23,
       f,
       senders_pb.Senders.serializeBinaryToWriter
     );
@@ -425,7 +437,7 @@ proto.Operation.serializeBinaryToWriter = function(message, writer) {
   f = message.getReceiversList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      23,
+      24,
       f,
       receivers_pb.Receivers.serializeBinaryToWriter
     );
@@ -541,7 +553,7 @@ proto.Operation.prototype.setTime = function(value) {
 
 
 /**
- * optional uint32 opblock = 5;
+ * optional int32 opblock = 5;
  * @return {number}
  */
 proto.Operation.prototype.getOpblock = function() {
@@ -793,7 +805,7 @@ proto.Operation.prototype.setSubtype = function(value) {
 
 
 /**
- * optional uint32 signer_account = 17;
+ * optional int32 signer_account = 17;
  * @return {number}
  */
 proto.Operation.prototype.getSignerAccount = function() {
@@ -853,18 +865,57 @@ proto.Operation.prototype.setNOperation = function(value) {
 
 
 /**
- * repeated Changers changers = 21;
+ * optional bytes enc_pubkey = 21;
+ * @return {!(string|Uint8Array)}
+ */
+proto.Operation.prototype.getEncPubkey = function() {
+  return /** @type {!(string|Uint8Array)} */ (jspb.Message.getFieldWithDefault(this, 21, ""));
+};
+
+
+/**
+ * optional bytes enc_pubkey = 21;
+ * This is a type-conversion wrapper around `getEncPubkey()`
+ * @return {string}
+ */
+proto.Operation.prototype.getEncPubkey_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getEncPubkey()));
+};
+
+
+/**
+ * optional bytes enc_pubkey = 21;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getEncPubkey()`
+ * @return {!Uint8Array}
+ */
+proto.Operation.prototype.getEncPubkey_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getEncPubkey()));
+};
+
+
+/** @param {!(string|Uint8Array)} value */
+proto.Operation.prototype.setEncPubkey = function(value) {
+  jspb.Message.setProto3BytesField(this, 21, value);
+};
+
+
+/**
+ * repeated Changers changers = 22;
  * @return {!Array<!proto.Changers>}
  */
 proto.Operation.prototype.getChangersList = function() {
   return /** @type{!Array<!proto.Changers>} */ (
-    jspb.Message.getRepeatedWrapperField(this, changers_pb.Changers, 21));
+    jspb.Message.getRepeatedWrapperField(this, changers_pb.Changers, 22));
 };
 
 
 /** @param {!Array<!proto.Changers>} value */
 proto.Operation.prototype.setChangersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 21, value);
+  jspb.Message.setRepeatedWrapperField(this, 22, value);
 };
 
 
@@ -874,7 +925,7 @@ proto.Operation.prototype.setChangersList = function(value) {
  * @return {!proto.Changers}
  */
 proto.Operation.prototype.addChangers = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 21, opt_value, proto.Changers, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 22, opt_value, proto.Changers, opt_index);
 };
 
 
@@ -887,18 +938,18 @@ proto.Operation.prototype.clearChangersList = function() {
 
 
 /**
- * repeated Senders senders = 22;
+ * repeated Senders senders = 23;
  * @return {!Array<!proto.Senders>}
  */
 proto.Operation.prototype.getSendersList = function() {
   return /** @type{!Array<!proto.Senders>} */ (
-    jspb.Message.getRepeatedWrapperField(this, senders_pb.Senders, 22));
+    jspb.Message.getRepeatedWrapperField(this, senders_pb.Senders, 23));
 };
 
 
 /** @param {!Array<!proto.Senders>} value */
 proto.Operation.prototype.setSendersList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 22, value);
+  jspb.Message.setRepeatedWrapperField(this, 23, value);
 };
 
 
@@ -908,7 +959,7 @@ proto.Operation.prototype.setSendersList = function(value) {
  * @return {!proto.Senders}
  */
 proto.Operation.prototype.addSenders = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 22, opt_value, proto.Senders, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 23, opt_value, proto.Senders, opt_index);
 };
 
 
@@ -921,18 +972,18 @@ proto.Operation.prototype.clearSendersList = function() {
 
 
 /**
- * repeated Receivers receivers = 23;
+ * repeated Receivers receivers = 24;
  * @return {!Array<!proto.Receivers>}
  */
 proto.Operation.prototype.getReceiversList = function() {
   return /** @type{!Array<!proto.Receivers>} */ (
-    jspb.Message.getRepeatedWrapperField(this, receivers_pb.Receivers, 23));
+    jspb.Message.getRepeatedWrapperField(this, receivers_pb.Receivers, 24));
 };
 
 
 /** @param {!Array<!proto.Receivers>} value */
 proto.Operation.prototype.setReceiversList = function(value) {
-  jspb.Message.setRepeatedWrapperField(this, 23, value);
+  jspb.Message.setRepeatedWrapperField(this, 24, value);
 };
 
 
@@ -942,7 +993,7 @@ proto.Operation.prototype.setReceiversList = function(value) {
  * @return {!proto.Receivers}
  */
 proto.Operation.prototype.addReceivers = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 23, opt_value, proto.Receivers, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 24, opt_value, proto.Receivers, opt_index);
 };
 
 

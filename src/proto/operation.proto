@@ -49,7 +49,7 @@ message Operation {
   string errors = 2;
   uint32 block = 3;
   uint32 time = 4;
-  uint32 opblock = 5;
+  int32 opblock = 5;
   bytes payload = 6;
   uint32 maturation = 7;
   Optype optype = 8;
@@ -61,11 +61,12 @@ message Operation {
   bytes ophash = 14;
   bytes old_ophash = 15;
   Subtype subtype = 16;
-  uint32 signer_account = 17;
+  int32 signer_account = 17;
   uint32 sender_account = 18;
   uint32 dest_account = 19;
   uint32 n_operation = 20;
-  repeated Changers changers = 21;
-  repeated Senders senders = 22;
-  repeated Receivers receivers = 23;
+  bytes enc_pubkey = 21;
+  repeated Changers changers = 22;
+  repeated Senders senders = 23;
+  repeated Receivers receivers = 24;
 }
